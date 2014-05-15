@@ -13,6 +13,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -43,13 +44,14 @@ public class OAuth2ServerConfig {
 	private static final String RESOURCE_ID = "dmAPI";
 
 	@Configuration
+    @EnableWebSecurity
 	@Order(10)
 	protected static class UiResourceConfiguration extends WebSecurityConfigurerAdapter
     {
 		@Override
 		protected void configure(HttpSecurity http) throws Exception
         {
-            logger.info(">>> 0 inside Uiresourceconfiguration.configure(...)");
+            logger.info(">>> B1 inside UiResourceConfiguration.configure(...)");
 
 			http
 			 	.requestMatchers().antMatchers("/api/greeting/**")
@@ -68,7 +70,7 @@ public class OAuth2ServerConfig {
 		@Override
 		public void configure(ResourceServerSecurityConfigurer resources)
         {
-            logger.info(">>> 1 inside ResourceServerConfiguration.configure(...)");
+            logger.info(">>> B2 inside ResourceServerConfiguration.configure(...)");
 
             resources.resourceId(RESOURCE_ID);
 		}
@@ -76,7 +78,7 @@ public class OAuth2ServerConfig {
 		@Override
 		public void configure(HttpSecurity http) throws Exception
         {
-            logger.info(">>> 2 inside ResourceServerConfiguration.configure(...)");
+            logger.info(">>> B3 inside ResourceServerConfiguration.configure(...)");
 
 			http
 				.requestMatchers().antMatchers("/api/greeting/**", "/oauth/users/**", "/oauth/clients/**")
@@ -115,7 +117,7 @@ public class OAuth2ServerConfig {
 		@Override
 		public void configure(ClientDetailsServiceConfigurer clients) throws Exception
         {
-            logger.info(">>> 3 inside AuthorizationServerConfiguration.configure(...)");
+            logger.info(">>> B4 inside AuthorizationServerConfiguration.configure(...)");
 		
 			clients.inMemory().withClient("myapp")
 			 			.resourceIds(RESOURCE_ID)
@@ -165,7 +167,7 @@ public class OAuth2ServerConfig {
 
 		@Bean
 		public TokenStore tokenStore() {
-            logger.info(">>> 4 inside AuthorizationServerConfiguration.tokenStore()");
+            logger.info(">>> B5 inside AuthorizationServerConfiguration.tokenStore()");
 
             return new InMemoryTokenStore();
 		}
@@ -173,7 +175,7 @@ public class OAuth2ServerConfig {
 		@Override
 		public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception
         {
-            logger.info(">>> 5 inside AuthorizationServerConfiguration.configure(...)");
+            logger.info(">>> B6 inside AuthorizationServerConfiguration.configure(...)");
 
 			endpoints.tokenStore(tokenStore)
 					.authenticationManager(authenticationManager);
@@ -182,7 +184,7 @@ public class OAuth2ServerConfig {
 		@Override
 		public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception
         {
-            logger.info(">>> 6 inside AuthorizationServerConfiguration.configure(...)");
+            logger.info(">>> B7 inside AuthorizationServerConfiguration.configure(...)");
 
 			oauthServer.realm("myApp/client");
 		}
@@ -200,7 +202,7 @@ public class OAuth2ServerConfig {
 		@Bean
 		public ApprovalStore approvalStore() throws Exception
         {
-            logger.info(">>> 7 inside Stuff.approvalStore()");
+            logger.info(">>> B8 inside Stuff.approvalStore()");
 
 			TokenApprovalStore store = new TokenApprovalStore();
 			store.setTokenStore(tokenStore);

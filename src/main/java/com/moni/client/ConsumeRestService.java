@@ -51,10 +51,13 @@ public class ConsumeRestService {
 	        System.out.println("The request response status:   " + entity.getStatusCode());
 	        System.out.println("Greeting ID:    " + greeting.getId());
 	        System.out.println("Greeting Content:   " + greeting.getContent());  
-		} catch (HttpClientErrorException ex) {
+		}
+        catch (HttpClientErrorException ex) {
 		      if (HttpStatus.UNAUTHORIZED == ex.getStatusCode()) {
 		    	  System.out.println("Unauthorized call to " + END_POINT 
 		    			  + "\nWrong login and/or password (\"" + LOGIN + "\" / \"" + PASSWORD + "\")");
+
+                  System.out.println("Cause: \n" + ex.getMessage() );
 		      }
 		}
 	}

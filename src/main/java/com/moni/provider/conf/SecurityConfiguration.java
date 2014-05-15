@@ -24,7 +24,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         @Override
         protected void configure(AuthenticationManagerBuilder auth) throws Exception
         {
-        	logger.info(">>> 1 Configuring API authentication manager");
+        	logger.info(">>> A1 Configuring API authentication manager");
 
             auth
                 .inMemoryAuthentication()
@@ -45,14 +45,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		@Override
         protected void configure(HttpSecurity http) throws Exception 
         {
-        	logger.info(">>> 2 Configuring API authorization security");
+        	logger.info(">>> A2 Configuring API authorization security");
         	
             http
             	.authorizeRequests().antMatchers("/platform/autoconfig").permitAll()
             .and()
                 .authorizeRequests().anyRequest().hasRole("USER")
              .and()
-	            .csrf().requireCsrfProtectionMatcher(new AntPathRequestMatcher("/platform/oauth/authorize")).disable()
+	            .csrf().requireCsrfProtectionMatcher(new AntPathRequestMatcher("/oauth/authorize")).disable()
 	            .httpBasic();	            	     
         }
 

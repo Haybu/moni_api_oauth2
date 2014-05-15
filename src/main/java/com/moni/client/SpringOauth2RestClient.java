@@ -10,8 +10,8 @@ import org.springframework.security.oauth2.client.token.grant.client.ClientCrede
 
 public class SpringOauth2RestClient {
 
-	private static final String END_POINT = "http://localhost:9090/platform/api/greeting";
-	private static final String ACCESS_TOKEN_URI = "http://localhost:9090/platform/oauth/token";
+	private static final String END_POINT = "http://localhost:8080/platform/api/greeting";
+	private static final String ACCESS_TOKEN_URI = "http://localhost:8080/platform/oauth/token";
 	
 	public static void main(String[] args) {
 		// call oauth2 secured API resource

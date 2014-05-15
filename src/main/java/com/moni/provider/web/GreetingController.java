@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
-//import org.springframework.security.access.prepost.PreAuthorize;
-
 @Controller
 @RequestMapping("/api")
 public class GreetingController {
@@ -26,7 +24,6 @@ public class GreetingController {
     private final AtomicLong counter = new AtomicLong();
 
     @RequestMapping(value = "/greeting" , method = RequestMethod.GET, produces="application/json")
-    //@PreAuthorize("#oauth2.clientHasRole('ROLE_CLIENT')")
     public @ResponseBody Greeting greeting(
             @RequestParam(value="name", required=false, defaultValue="World") String name)
     {
