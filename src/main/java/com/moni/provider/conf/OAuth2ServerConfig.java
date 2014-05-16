@@ -88,11 +88,11 @@ public class OAuth2ServerConfig {
 					.antMatchers("/api/greeting").access("#oauth2.hasScope('trust')")
 					.antMatchers("/api/greeting/**").access("#oauth2.hasScope('read')")
 					.antMatchers("/api/greeting/**").access("#oauth2.hasScope('trust')")
-					.regexMatchers(HttpMethod.DELETE, "/platform/oauth/users/([^/].*?)/tokens/.*")
+					.regexMatchers(HttpMethod.DELETE, "/oauth/users/([^/].*?)/tokens/.*")
 						.access("#oauth2.clientHasRole('ROLE_CLIENT') and (hasRole('ROLE_USER') or #oauth2.isClient()) and #oauth2.hasScope('write')")
-					.regexMatchers(HttpMethod.GET, "/platform/oauth/clients/([^/].*?)/users/.*")
+					.regexMatchers(HttpMethod.GET, "/oauth/clients/([^/].*?)/users/.*")
 						.access("#oauth2.clientHasRole('ROLE_CLIENT') and (hasRole('ROLE_USER') or #oauth2.isClient()) and #oauth2.hasScope('read')")
-					.regexMatchers(HttpMethod.GET, "/platform/oauth/clients/.*")
+					.regexMatchers(HttpMethod.GET, "/oauth/clients/.*")
 						.access("#oauth2.clientHasRole('ROLE_CLIENT') and #oauth2.isClient() and #oauth2.hasScope('read')");
 		}
 
